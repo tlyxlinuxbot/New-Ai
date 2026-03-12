@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Stock Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#0f172a;
+color:white;
+}
+
+.sidebar{
+width:230px;
+height:100vh;
+background:#020617;
+position:fixed;
+padding:20px;
+}
+
+.sidebar h2{
+color:#22c55e;
+}
+
+.sidebar button{
+display:block;
+width:100%;
+padding:10px;
+margin:10px 0;
+background:#1e293b;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+.main{
+margin-left:250px;
+padding:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #334155;
+}
+
+input{
+padding:8px;
+margin:5px;
+}
+
+.green{
+color:#22c55e;
+}
+
+.red{
+color:#ef4444;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Stock AI</h2>
+
+<button onclick="menu('watchlist')">Watchlist</button>
+<button onclick="menu('chart')">Chart</button>
+<button onclick="menu('screener')">Screener</button>
+<button onclick="menu('financial')">Financial</button>
+<button onclick="menu('keystats')">Key Stats</button>
+<button onclick="menu('portfolio')">Portfolio</button>
+<button onclick="menu('stream')">Stream</button>
+
+</div>
+
+<div class="main">
+
+<div id="content"></div>
+
+</div>
+
+<script>
+
+function menu(page){
+
+if(page=="watchlist"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Watchlist</h2>
+
+<table>
+
+<tr>
+<th>Saham</th>
+<th>Harga</th>
+<th>Change</th>
+</tr>
+
+<tr>
+<td>BBRI</td>
+<td>5400</td>
+<td class="green">+1.5%</td>
+</tr>
+
+<tr>
+<td>BBCA</td>
+<td>9100</td>
+<td class="red">-0.7%</td>
+</tr>
+
+<tr>
+<td>TLKM</td>
+<td>3850</td>
+<td class="green">+0.3%</td>
+</tr>
+
+</table>
+
+</div>
+
+`
+}
+
+if(page=="chart"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Chart Analysis</h2>
+
+<input id="kode" placeholder="Kode saham">
+
+<button onclick="chart()">Analisis</button>
+
+<div id="hasilChart"></div>
+
+</div>
+
+`
+}
+
+if(page=="screener"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Stock Screener</h2>
+
+<input placeholder="PER < 15">
+<input placeholder="ROE > 10">
+
+<button onclick="scan()">Scan</button>
+
+<div id="hasilScan"></div>
+
+</div>
+
+`
+}
+
+if(page=="financial"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Financial Report</h2>
+
+<table>
+
+<tr>
+<th>Saham</th>
+<th>Revenue</th>
+<th>Net Profit</th>
+</tr>
+
+<tr>
+<td>BBRI</td>
+<td>200T</td>
+<td>50T</td>
+</tr>
+
+<tr>
+<td>BBCA</td>
+<td>190T</td>
+<td>48T</td>
+</tr>
+
+</table>
+
+</div>
+
+`
+}
+
+if(page=="keystats"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Key Stats</h2>
+
+<table>
+
+<tr>
+<th>Saham</th>
+<th>PER</th>
+<th>PBV</th>
+<th>ROE</th>
+</tr>
+
+<tr>
+<td>BBRI</td>
+<td>17</td>
+<td>3.2</td>
+<td>18%</td>
+</tr>
+
+<tr>
+<td>BBCA</td>
+<td>22</td>
+<td>4.1</td>
+<td>19%</td>
+</tr>
+
+</table>
+
+</div>
+
+`
+}
+
+if(page=="portfolio"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Portfolio</h2>
+
+<input id="saham" placeholder="Kode saham">
+<input id="harga" placeholder="Harga">
+<input id="lot" placeholder="Lot">
+
+<button onclick="add()">Tambah</button>
+
+<table id="port">
+
+<tr>
+<th>Saham</th>
+<th>Harga</th>
+<th>Lot</th>
+<th>Total</th>
+</tr>
+
+</table>
+
+</div>
+
+`
+}
+
+if(page=="stream"){
+
+document.getElementById("content").innerHTML=`
+
+<div class="card">
+
+<h2>Investor Stream</h2>
+
+<p><b>@TraderA</b> : BBRI breakout resistance 🔥</p>
+
+<p><b>@ValueInvestor</b> : TLKM undervalued menurut saya</p>
+
+<p><b>@ChartMaster</b> : BBCA support kuat di 9000</p>
+
+</div>
+
+`
+}
+
+}
+
+function chart(){
+
+let kode=document.getElementById("kode").value
+
+document.getElementById("hasilChart").innerHTML=
+
+`
+<p>${kode}</p>
+<p>Trend : Bullish</p>
+<p>Support : 5200</p>
+<p>Resistance : 5800</p>
+`
+
+}
+
+function scan(){
+
+document.getElementById("hasilScan").innerHTML=
+
+"Saham potensial: BBRI, ASII, TLKM"
+
+}
+
+function add(){
+
+let saham=document.getElementById("saham").value
+let harga=document.getElementById("harga").value
+let lot=document.getElementById("lot").value
+
+let total=harga*lot*100
+
+let table=document.getElementById("port")
+
+let row=table.insertRow()
+
+row.insertCell(0).innerHTML=saham
+row.insertCell(1).innerHTML=harga
+row.insertCell(2).innerHTML=lot
+row.insertCell(3).innerHTML=total
+
+}
+
+menu("watchlist")
+
+</script>
+
+</body>
+  </html>
