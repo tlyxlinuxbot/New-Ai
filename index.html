@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Saham Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+}
+
+.container{
+width:90%;
+margin:auto;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+margin:15px;
+border-radius:10px;
+}
+
+input{
+padding:10px;
+width:200px;
+}
+
+button{
+padding:10px 20px;
+background:#22c55e;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #334155;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📈 AI Saham Dashboard</h1>
+
+<div class="container">
+
+<div class="card">
+
+<h2>AI Analisis Saham</h2>
+
+<input id="stock" placeholder="Kode saham (BBRI)">
+<button onclick="analyze()">Analisis</button>
+
+<div id="hasil"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Portfolio Tracker</h2>
+
+<input id="saham" placeholder="Kode">
+<input id="harga" placeholder="Harga beli">
+<input id="lot" placeholder="Lot">
+
+<button onclick="tambah()">Tambah</button>
+
+<table id="table">
+
+<tr>
+<th>Saham</th>
+<th>Harga</th>
+<th>Lot</th>
+<th>Total</th>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+function analyze(){
+
+let kode = document.getElementById("stock").value.toUpperCase()
+
+let trend = ["Bullish","Bearish"]
+let signal = ["BUY","SELL","WAIT"]
+
+let harga = Math.floor(Math.random()*5000)+1000
+let score = Math.floor(Math.random()*100)
+
+let hasil = `
+<h3>${kode}</h3>
+<p>Harga : ${harga}</p>
+<p>Trend : ${trend[Math.floor(Math.random()*2)]}</p>
+<p>AI Score : ${score}/100</p>
+<p>Signal : ${signal[Math.floor(Math.random()*3)]}</p>
+`
+
+document.getElementById("hasil").innerHTML = hasil
+
+}
+
+function tambah(){
+
+let saham = document.getElementById("saham").value
+let harga = document.getElementById("harga").value
+let lot = document.getElementById("lot").value
+
+let total = harga * lot * 100
+
+let table = document.getElementById("table")
+
+let row = table.insertRow()
+
+row.insertCell(0).innerHTML = saham
+row.insertCell(1).innerHTML = harga
+row.insertCell(2).innerHTML = lot
+row.insertCell(3).innerHTML = total
+
+}
+
+</script>
+
+</body>
+  </html>
